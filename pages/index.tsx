@@ -1,4 +1,5 @@
 import Alert from '../components/Alert';
+import Empty from '../components/Empty';
 import Head from 'next/head';
 import { Header } from './../components/Header';
 import Image from 'next/image';
@@ -72,7 +73,7 @@ const Home: NextPage = () => {
         ></Alert>
       )}
 
-      <div className="m-0 w-screen overflow-hidden bg-gray-50 p-0">
+      <div className="m-0 w-full overflow-hidden bg-gray-50 p-4 md:p-5">
         <div className="container m-auto">
           <Header
             onChange={(e) => {
@@ -96,51 +97,9 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className="container m-auto overflow-hidden border-2">
-        <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-          <div className="flex w-full flex-col items-center justify-center gap-y-2">
-            <input
-              type="text"
-              placeholder="Add your wallet address"
-              onChange={(e) => {
-                setWalletAddress(e.target.value.trim());
-              }}
-              disabled={fetchForCollection}
-            ></input>
-            <input
-              type="text"
-              placeholder="Add the collection address"
-              onChange={(e) => {
-                setCollectionAddress(e.target.value.trim());
-              }}
-            ></input>
-            <label className="text-gray-600 ">
-              <input
-                type="checkbox"
-                className="mr-2"
-                onChange={(e) => {
-                  setFetchForCollection(e.target.checked);
-                }}
-              ></input>
-              Fetch for collection
-            </label>
-            <fieldset
-              disabled={wallet.length != 42 || !wallet.startsWith('0x')}
-              className="w-1/5"
-            >
-              <button
-                className="mt-3 rounded-sm bg-blue-400 px-4 py-2 text-white disabled:bg-slate-500"
-                // onClick={() =>
-                //   fetchForCollection ? fetchNFTsForCollection() : fetchNFTs()
-                // }
-              >
-                Let's go!{' '}
-              </button>
-            </fieldset>
-          </div>
-        </main>
-
-        <div className="mt-4 flex w-5/6 flex-wrap justify-center gap-y-12 gap-x-2">
+      <div className="container m-auto mt-10 mb-20 min-h-screen overflow-hidden">
+        {!NFTs.length && <Empty />}
+        <div className="mt-4 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 md:gap-5 xl:grid-cols-5">
           {NFTs.length > 0 &&
             NFTs.map((nft: any, idx: number) => {
               return <NFTCard key={idx} nft={nft}></NFTCard>;
