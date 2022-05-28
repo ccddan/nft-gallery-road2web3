@@ -69,6 +69,9 @@ const Home: NextPage = () => {
       <div className="m-0 w-full overflow-hidden bg-gray-50 p-4 md:p-5">
         <div className="container m-auto">
           <Header
+            onCheckbox={(e) => {
+              setFetchForCollection(e.target.checked);
+            }}
             onChange={(e) => {
               setAddress(e.target.value.trim());
             }}

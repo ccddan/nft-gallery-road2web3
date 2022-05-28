@@ -2,12 +2,13 @@ import Image from 'next/image';
 import polygonImage from './../public/assets/polygon-logo-full.svg';
 
 interface HeaderProps {
+  onCheckbox: (e: any) => void;
   onChange: (e: any) => void;
   onSearch: () => void;
 }
 
 export const Header = (props: HeaderProps) => {
-  const { onChange, onSearch } = props;
+  const { onCheckbox, onChange, onSearch } = props;
   return (
     <header className="px-0 md:px-1">
       <div className="mx-auto max-w-screen-xl pt-0 md:px-0 lg:px-8">
@@ -36,6 +37,7 @@ export const Header = (props: HeaderProps) => {
               name="remember-me"
               type="checkbox"
               className="mb-[10px] h-4 w-4 rounded border-gray-300 text-indigo-600 focus:outline-none focus:ring focus:ring-violet-400"
+              onChange={onCheckbox}
             />
           </div>
 
