@@ -8,6 +8,7 @@ import data from './../public/assets/data.json';
 import { useState } from 'react';
 
 const Home: NextPage = () => {
+  const [address, setAddress] = useState('');
   const [wallet, setWalletAddress] = useState('');
   const [collection, setCollectionAddress] = useState('');
   const [NFTs, setNFTs] = useState<any>([]);
@@ -64,6 +65,9 @@ const Home: NextPage = () => {
       <div className="m-0 w-screen overflow-hidden bg-gray-50 p-0">
         <div className="container m-auto">
           <Header
+            onChange={(e) => {
+              setAddress(e.target.value.trim());
+            }}
             onSearch={() => {
               console.log('Fetching NFTs...');
               fetchForCollection ? fetchNFTsForCollection() : fetchNFTs();

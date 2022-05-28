@@ -2,11 +2,12 @@ import Image from 'next/image';
 import polygonImage from './../public/assets/polygon-logo-full.svg';
 
 interface HeaderProps {
+  onChange: (e: any) => void;
   onSearch: () => void;
 }
 
 export const Header = (props: HeaderProps) => {
-  const { onSearch } = props;
+  const { onChange, onSearch } = props;
   return (
     <header>
       <div className="mx-auto max-w-screen-xl px-0 py-8 lg:px-8">
@@ -34,6 +35,7 @@ export const Header = (props: HeaderProps) => {
                 id="search"
                 type="search"
                 placeholder="Address: 0x..."
+                onChange={onChange}
               />
 
               <button
