@@ -6,7 +6,6 @@ import Image from 'next/image';
 import NFTCard from '../components/NFTCard';
 import type { NextPage } from 'next';
 import config from '../config';
-import data from './../public/assets/collection.json';
 import { useState } from 'react';
 
 const Home: NextPage = () => {
