@@ -9,9 +9,9 @@ interface HeaderProps {
 export const Header = (props: HeaderProps) => {
   const { onChange, onSearch } = props;
   return (
-    <header>
-      <div className="mx-auto max-w-screen-xl px-0 py-8 lg:px-8">
-        <div className="mt-0">
+    <header className="px-0 md:px-1">
+      <div className="mx-auto max-w-screen-xl pt-0 md:px-0 lg:px-8">
+        <div className="mt-0 text-center md:text-left">
           <h1 className="title text-2xl font-bold text-gray-900 sm:text-3xl">
             NFT Gallery
           </h1>
@@ -22,7 +22,23 @@ export const Header = (props: HeaderProps) => {
             By wallet or by collection 🌈
           </p>
         </div>
-        <div className="flex items-end justify-end gap-4">
+        <div className="mt-8 flex flex-col-reverse items-center justify-center gap-4 md:mt-1 md:flex-row md:items-end md:justify-end">
+          <div className="flex flex-row-reverse items-center md:flex-row">
+            <label
+              htmlFor="remember-me"
+              className="mb-[10px] block px-2 text-sm text-gray-900"
+            >
+              {' '}
+              Is Collection{' '}
+            </label>
+            <input
+              id="remember-me"
+              name="remember-me"
+              type="checkbox"
+              className="mb-[10px] h-4 w-4 rounded border-gray-300 text-indigo-600 focus:outline-none focus:ring focus:ring-violet-400"
+            />
+          </div>
+
           <div className="flex items-center gap-4">
             <div className="relative">
               <label className="sr-only" htmlFor="search">
@@ -64,12 +80,12 @@ export const Header = (props: HeaderProps) => {
 
           <span
             aria-hidden="true"
-            className="block h-6 w-px rounded-full bg-gray-200"
+            className="hidden h-8 w-px rounded-full bg-gray-200 md:block"
           ></span>
 
-          <a href="" className="block shrink-0">
+          <div className="mt-6 block shrink-0">
             <Image className="object-cover" src={polygonImage} alt="Polygon" />
-          </a>
+          </div>
         </div>
       </div>
     </header>
