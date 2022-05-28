@@ -7,34 +7,40 @@ export const NFTCard = (props: any) => {
     nft && nft.media && nft.media.length > 0 && nft.media[0].gateway
       ? nft.media[0].gateway
       : defaultImage;
-  return (
-    <div className="flex w-1/4 flex-col ">
-      <div className="rounded-md">
-        {!mediaUrl.endsWith('.mp4') && (
-          <img
-            className="h-128 w-full rounded-t-md object-cover"
-            src={mediaUrl}
-          ></img>
-        )}
-        {!!mediaUrl.endsWith('.mp4') && (
-          <video className="clip w-full shadow-lg" autoPlay loop controls muted>
-            <source src={mediaUrl} type="video/mp4" />
-          </video>
-        )}
-      </div>
-      <div className="y-gap-2 h-110 flex flex-col rounded-b-md bg-slate-100 px-2 py-3 ">
-        <div className="">
-          <h2 className="text-xl text-gray-800">{nft.title}</h2>
-          <p className="text-gray-600">
-            Id: {nft.id && nft.id.tokenId ? nft.id.tokenId : 'Undefined'}
-          </p>
-          <p className="text-gray-600">
-            {nft.contract ? nft.contract.address : 'Undefined'}
-          </p>
-        </div>
+  const title = nft.title || 'Undefined';
+  const tokenId = parseInt(nft.id && nft.id.tokenId ? nft.id.tokenId : '', 16);
+  const address = nft.contract ? nft.contract.address : 'Undefined';
+  const description = nft.description || 'Undefined';
 
-        <div className="mt-2 flex-grow">
-          <p className="text-gray-600">{nft.description || 'Undefined'}</p>
+  return (
+    <div className="block overflow-hidden rounded-lg border border-gray-100 shadow-sm">
+      {!mediaUrl.endsWith('.mp4') && (
+        <img
+          className="hover:animate h-56 w-full object-cover transition-all ease-in hover:scale-110"
+          src={mediaUrl}
+        ></img>
+      )}
+      {!!mediaUrl.endsWith('.mp4') && (
+        <video
+          className="clip h-56 w-full object-cover shadow-lg"
+          autoPlay
+          loop
+          controls
+          muted
+        >
+          <source src={mediaUrl} type="video/mp4" />
+        </video>
+      )}
+
+      <div className="p-6">
+        <h5 className="text-xl font-bold">
+          #{tokenId} - {title}
+        </h5>
+
+        <p className="mt-2 text-sm text-gray-500">{description}</p>
+
+        <div className="cursor mt-4 inline-block max-w-full overflow-clip text-ellipsis pb-1 font-medium text-blue-600">
+          Addr: {address}
         </div>
       </div>
     </div>
