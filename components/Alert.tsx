@@ -7,10 +7,10 @@ export const Alert = (props: AlertProps) => {
   const { message, onClose } = props;
   return (
     <div
-      className="absolute flex w-screen items-center justify-between gap-4 rounded border border-red-900/10 bg-red-50 p-4 text-red-700"
+      className="absolute z-[1000] flex w-screen items-center justify-between gap-4 rounded border border-red-900/10 bg-red-50 p-4 text-red-700"
       role="alert"
     >
-      <div className="container m-auto flex max-w-[30%] justify-between">
+      <div className="container m-auto flex max-w-full justify-between md:max-w-[30%]">
         <div className="flex items-center gap-4">
           <span className="rounded-full bg-red-600 p-2 text-white">
             <svg

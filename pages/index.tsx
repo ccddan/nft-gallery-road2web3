@@ -1,3 +1,4 @@
+import Alert from '../components/Alert';
 import Head from 'next/head';
 import { Header } from './../components/Header';
 import Image from 'next/image';
@@ -8,6 +9,7 @@ import data from './../public/assets/data.json';
 import { useState } from 'react';
 
 const Home: NextPage = () => {
+  const [alert, setAlert] = useState('');
   const [address, setAddress] = useState('');
   const [wallet, setWalletAddress] = useState('');
   const [collection, setCollectionAddress] = useState('');
