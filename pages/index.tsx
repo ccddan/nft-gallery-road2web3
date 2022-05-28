@@ -26,9 +26,11 @@ const Home: NextPage = () => {
     const fetchURL = `${baseURL}?owner=${address}`;
     nfts = await fetch(fetchURL, requestOptions).then((data) => data.json());
 
-    if (nfts) {
+    if (nfts && nfts.ownedNfts.length) {
       console.log('nfts:', nfts);
       setNFTs(nfts.ownedNfts);
+    } else {
+      setAlert('This address did not return any NFT');
     }
   };
 
@@ -41,9 +43,11 @@ const Home: NextPage = () => {
     const nfts = await fetch(fetchURL, requestOptions).then((data) =>
       data.json()
     );
-    if (nfts) {
+    if (nfts && nfts.nfts.length) {
       console.log('NFTs in collection:', nfts);
       setNFTs(nfts.nfts);
+    } else {
+      setAlert('This address did not return any NFT');
     }
   };
 
