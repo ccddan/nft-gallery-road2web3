@@ -61,6 +61,14 @@ const Home: NextPage = () => {
         <title>NFT Gallery - Alchemy NFT API</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {!!alert && (
+        <Alert
+          message={alert}
+          onClose={() => {
+            setAlert('');
+          }}
+        ></Alert>
+      )}
 
       <div className="m-0 w-screen overflow-hidden bg-gray-50 p-0">
         <div className="container m-auto">
@@ -70,6 +78,16 @@ const Home: NextPage = () => {
             }}
             onSearch={() => {
               console.log('Fetching NFTs...');
+              if (!address.length) {
+                setAlert(
+                  'Your should specify the address of a wallet or a collection'
+                );
+                return;
+              }
+              if (!address.startsWith('0x') || address.length != 42) {
+                setAlert('This address is not valid, try with another one');
+                return;
+              }
               fetchForCollection ? fetchNFTsForCollection() : fetchNFTs();
             }}
           />
