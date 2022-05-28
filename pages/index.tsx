@@ -12,8 +12,6 @@ import { useState } from 'react';
 const Home: NextPage = () => {
   const [alert, setAlert] = useState('');
   const [address, setAddress] = useState('');
-  const [wallet, setWalletAddress] = useState('');
-  const [collection, setCollectionAddress] = useState('');
   const [NFTs, setNFTs] = useState<any>([]);
   const [fetchForCollection, setFetchForCollection] = useState(false);
 
@@ -25,15 +23,8 @@ const Home: NextPage = () => {
       method: 'GET',
     };
 
-    if (!collection.length) {
-      const fetchURL = `${baseURL}?owner=${wallet}`;
-
-      nfts = await fetch(fetchURL, requestOptions).then((data) => data.json());
-    } else {
-      console.log('fetching nfts for collection owned by address');
-      const fetchURL = `${baseURL}?owner=${wallet}&contractAddresses%5B%5D=${collection}`;
-      nfts = await fetch(fetchURL, requestOptions).then((data) => data.json());
-    }
+    const fetchURL = `${baseURL}?owner=${address}`;
+    nfts = await fetch(fetchURL, requestOptions).then((data) => data.json());
 
     if (nfts) {
       console.log('nfts:', nfts);
@@ -42,19 +33,17 @@ const Home: NextPage = () => {
   };
 
   const fetchNFTsForCollection = async () => {
-    if (collection.length) {
-      var requestOptions = {
-        method: 'GET',
-      };
-      const baseURL = `${config.rpcUrl}/getNFTsForCollection/`;
-      const fetchURL = `${baseURL}?contractAddress=${collection}&withMetadata=${'true'}`;
-      const nfts = await fetch(fetchURL, requestOptions).then((data) =>
-        data.json()
-      );
-      if (nfts) {
-        console.log('NFTs in collection:', nfts);
-        setNFTs(nfts.nfts);
-      }
+    var requestOptions = {
+      method: 'GET',
+    };
+    const baseURL = `${config.rpcUrl}/getNFTsForCollection/`;
+    const fetchURL = `${baseURL}?contractAddress=${address}&withMetadata=${'true'}`;
+    const nfts = await fetch(fetchURL, requestOptions).then((data) =>
+      data.json()
+    );
+    if (nfts) {
+      console.log('NFTs in collection:', nfts);
+      setNFTs(nfts.nfts);
     }
   };
 
