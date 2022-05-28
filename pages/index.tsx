@@ -1,8 +1,10 @@
 import Head from 'next/head';
+import { Header } from './../components/Header';
 import Image from 'next/image';
 import NFTCard from '../components/NFTCard';
 import type { NextPage } from 'next';
 import config from '../config';
+import data from './../public/assets/data.json';
 import { useState } from 'react';
 
 const Home: NextPage = () => {
@@ -53,62 +55,74 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
+    <>
       <Head>
         <title>NFT Gallery - Alchemy NFT API</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <div className="flex w-full flex-col items-center justify-center gap-y-2">
-          <input
-            type="text"
-            placeholder="Add your wallet address"
-            onChange={(e) => {
-              setWalletAddress(e.target.value.trim());
+      <div className="m-0 w-screen overflow-hidden bg-gray-50 p-0">
+        <div className="container m-auto">
+          <Header
+            onSearch={() => {
+              console.log('Fetching NFTs...');
+              fetchForCollection ? fetchNFTsForCollection() : fetchNFTs();
             }}
-            disabled={fetchForCollection}
-          ></input>
-          <input
-            type="text"
-            placeholder="Add the collection address"
-            onChange={(e) => {
-              setCollectionAddress(e.target.value.trim());
-            }}
-          ></input>
-          <label className="text-gray-600 ">
-            <input
-              type="checkbox"
-              className="mr-2"
-              onChange={(e) => {
-                setFetchForCollection(e.target.checked);
-              }}
-            ></input>
-            Fetch for collection
-          </label>
-          <fieldset
-            disabled={wallet.length != 42 || !wallet.startsWith('0x')}
-            className="w-1/5"
-          >
-            <button
-              className="mt-3 rounded-sm bg-blue-400 px-4 py-2 text-white disabled:bg-slate-500"
-              // onClick={() =>
-              //   fetchForCollection ? fetchNFTsForCollection() : fetchNFTs()
-              // }
-            >
-              Let's go!{' '}
-            </button>
-          </fieldset>
+          />
         </div>
-      </main>
-
-      <div className="mt-4 flex w-5/6 flex-wrap justify-center gap-y-12 gap-x-2">
-        {NFTs.length > 0 &&
-          NFTs.map((nft: any, idx: number) => {
-            return <NFTCard key={idx} nft={nft}></NFTCard>;
-          })}
       </div>
 
+      <div className="container m-auto overflow-hidden border-2">
+        <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
+          <div className="flex w-full flex-col items-center justify-center gap-y-2">
+            <input
+              type="text"
+              placeholder="Add your wallet address"
+              onChange={(e) => {
+                setWalletAddress(e.target.value.trim());
+              }}
+              disabled={fetchForCollection}
+            ></input>
+            <input
+              type="text"
+              placeholder="Add the collection address"
+              onChange={(e) => {
+                setCollectionAddress(e.target.value.trim());
+              }}
+            ></input>
+            <label className="text-gray-600 ">
+              <input
+                type="checkbox"
+                className="mr-2"
+                onChange={(e) => {
+                  setFetchForCollection(e.target.checked);
+                }}
+              ></input>
+              Fetch for collection
+            </label>
+            <fieldset
+              disabled={wallet.length != 42 || !wallet.startsWith('0x')}
+              className="w-1/5"
+            >
+              <button
+                className="mt-3 rounded-sm bg-blue-400 px-4 py-2 text-white disabled:bg-slate-500"
+                // onClick={() =>
+                //   fetchForCollection ? fetchNFTsForCollection() : fetchNFTs()
+                // }
+              >
+                Let's go!{' '}
+              </button>
+            </fieldset>
+          </div>
+        </main>
+
+        <div className="mt-4 flex w-5/6 flex-wrap justify-center gap-y-12 gap-x-2">
+          {NFTs.length > 0 &&
+            NFTs.map((nft: any, idx: number) => {
+              return <NFTCard key={idx} nft={nft}></NFTCard>;
+            })}
+        </div>
+      </div>
       <footer className="flex h-24 w-full items-center justify-center border-t text-gray-400">
         © 2022 Road to Web3 by
         <a className="ml-5 pt-2" href="https://www.alchemy.com/">
@@ -120,7 +134,7 @@ const Home: NextPage = () => {
           />
         </a>
       </footer>
-    </div>
+    </>
   );
 };
 

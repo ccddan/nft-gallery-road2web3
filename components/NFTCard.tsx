@@ -1,6 +1,5 @@
 export const NFTCard = (props: any) => {
   const { nft } = props;
-  console.log('processing NFT:', nft);
   const defaultImage =
     'https://assets-global.website-files.com/5f973c970bea5548ad4287ef/6088f4c7c34ad61ab10cdf72_horizontal-logo-onecolor-neutral-alchemy.svg';
 
